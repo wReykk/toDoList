@@ -86,7 +86,6 @@ class TaskService {
 
     private async saveTasks() {
         try {
-            // The arguments (null, 2) pretty-print the JSON with a 2-space indentation
             const jsonString = JSON.stringify(this.tasks, null, 2);
             await writeFile('output.json', jsonString, 'utf-8');
             console.log('JSON file saved successfully!');
@@ -98,8 +97,6 @@ class TaskService {
     private safeParseTask(json: string): ITask[] {
         try {
             const parsed: unknown = JSON.parse(json);
-
-            // Explicit runtime structural check
             if (Array.isArray(parsed)) {
                 const validTasks: ITask[] = []
                 for (const item of parsed) {
@@ -123,6 +120,7 @@ class TaskService {
 
 const service = new TaskService()
 await service.init()
+
 // await service.addTask('Wash dishes')
 // await service.addTask('Buy bread')
 // await service.addTask('Visit grandma')
